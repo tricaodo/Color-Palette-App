@@ -5,7 +5,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### Library to be used
-react-copy-to-clipboard.
+- react-copy-to-clipboard.
+- react-router-dom.
+- chroma-js.
+
 
 ### `yarn start`
 
