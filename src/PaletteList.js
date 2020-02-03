@@ -2,47 +2,51 @@ import React, { Component } from "react";
 import MiniPalette from "./MiniPalette";
 import { withStyles } from "@material-ui/styles";
 const styles = {
-  root: { 
-    backgroundColor: "blue", 
-    width: "100%",
+  root: {
+    backgroundColor: "lightgrey",
+    height: "100vh",
     display: "flex",
-    justifyContent: "center",    
-    alignItems: "flex-start"
+    alignItems: "flex-start",
+    justifyContent: "center"
   },
-  container: { 
+  container: {
     width: "50%",
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",    
+    alignItems: "flex-start",
     flexDirection: "column",
     flexWrap: "wrap",
-    border: "1px solid white"
+    justifyContent: "center"
   },
-  title: { 
+  nav: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-between",
     fontSize: "1.5rem",
     color: "white",
-    display: "flex",
-    justifyContent: "space-between",
     paddingBottom: "15px",
-    paddingTop: "15px",
-    width: "100%"
+    paddingTop: "15px"
   },
-  palettes: {  
-    display: "grid",    
+  palettes: {
+    boxSizing: "border-box",
+    width: "100%",
+    display: "grid",
     gridTemplateColumns: "repeat(3, 30%)",
     gridGap: "5%"
   }
 };
 class PaletteList extends Component {
+  goToPalette(id){
+    this.props.history.push(`/palette/${id}`);
+  }
   render() {
     const { palettes, classes } = this.props;
     return (
       <div className={classes.root}>
         <div className={classes.container}>
-          <nav className={classes.title}>React Color</nav>
+          <nav className={classes.nav}>React Color</nav>
           <div className={classes.palettes}>
             {palettes.map(palette => (
-              <MiniPalette {...palette} />
+              <MiniPalette {...palette} handleClick={() => this.goToPalette(palette.id)} />
             ))}
           </div>
         </div>

@@ -6,25 +6,28 @@ const style = {
     padding: "0.5rem",
     borderRadius: "5px",
     border: "1px solid grey",
-    // overflow: "hidden",
-    // position: "relative",
+    position: "relative",
+    overflow: "hidden",
     "&:hover": {
       cursor: "pointer"
     }
   },
   colors: {
     backgroundColor: "grey",
+    height: "150px",
     width: "100%",
-    height: "150px"    
+    borderRadius: "5px",
+    overflow: "hidden"
   },
   title: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     margin: "0",
-    paddintTop: "0.5rem",
-    fontSize: "1rem"
-    // position: "relative"
+    color: "black",
+    paddingTop: "0.5rem",
+    fontSize: "1rem",
+    position: "relative"
   },
   emoji: {
     marginLeft: "0.5rem",
@@ -32,11 +35,12 @@ const style = {
   },
 
   miniPalette: {
-    display: "inline-block",
-    width: "20%",
     height: "25%",
+    width: "20%",
+    display: "inline-block",
     margin: "0 auto",
-    marginBottom: "-3.5px"
+    marginBottom: "-3.5px",
+    position: "relative"
   }
 };
 function miniPalette(props) {
@@ -49,7 +53,7 @@ function miniPalette(props) {
     ></div>
   ));
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={props.handleClick}>
       <div className={classes.colors}>{palette}</div>
       <h5 className={classes.title}>
         {paletteName}
