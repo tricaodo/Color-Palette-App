@@ -40,6 +40,14 @@
     opacity: 1;
 }
 
+.ColorBox .black-text{
+    color: rgba(0,0,0,0.6);
+}
+
+.ColorBox .light-text{
+    color: white;
+}
+
 .ColorBox:hover .copy-button{
     opacity: 1;
     transition: 0.5s;
