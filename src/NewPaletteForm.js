@@ -7,9 +7,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { ChromePicker } from "react-color";
 
 const drawerWidth = 400;
 
@@ -70,9 +72,14 @@ const styles = theme => ({
   }
 });
 class NewPaletteForm extends Component {
-  state = {
-    open: false
-  };
+  constructor() {
+    super();
+    this.state = {
+      open: false,
+      currentColor: "teal"
+    };
+    this.updateCurrentColor = this.updateCurrentColor.bind(this);
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -81,6 +88,10 @@ class NewPaletteForm extends Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
+
+  updateCurrentColor(newColor) {
+    this.setState({ currentColor: newColor.hex });
+  }
 
   render() {
     const { classes } = this.props;
@@ -124,6 +135,22 @@ class NewPaletteForm extends Component {
             </IconButton>
           </div>
           <Divider />
+          <Typography variant="h4">Design Your Palette</Typography>
+          <div>
+            <Button variant="contained" color="secondary">
+              Clear Palette
+            </Button>
+            <Button variant="contained" color="primary">
+              Random Color
+            </Button>
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ backgroundColor: this.state.currentColor }}
+          >
+            Add Color
+          </Button>
         </Drawer>
         <main
           className={classNames(classes.content, {
@@ -131,6 +158,10 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
+          <ChromePicker
+            color="purple"
+            onChangeComplete={(newColor) => this.setState({currentColor: newColor.hex})}
+          />
         </main>
       </div>
     );
