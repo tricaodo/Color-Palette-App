@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { ChromePicker } from "react-color";
+import { SketchPicker } from "react-color";
 
 const drawerWidth = 400;
 
@@ -78,7 +78,7 @@ class NewPaletteForm extends Component {
       open: false,
       currentColor: "teal"
     };
-    this.updateCurrentColor = this.updateCurrentColor.bind(this);
+    // this.updateCurrentColor = this.updateCurrentColor.bind(this);
   }
 
   handleDrawerOpen = () => {
@@ -89,7 +89,10 @@ class NewPaletteForm extends Component {
     this.setState({ open: false });
   };
 
-  updateCurrentColor(newColor) {
+  // updateCurrentColor(newColor) {
+  //   this.setState({ currentColor: newColor.hex });
+  // }
+  updateCurrentColor = (newColor) => {
     this.setState({ currentColor: newColor.hex });
   }
 
@@ -158,9 +161,8 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <ChromePicker
-            color="purple"
-            onChangeComplete={(newColor) => this.setState({currentColor: newColor.hex})}
+          <SketchPicker
+            onChangeComplete={this.updateCurrentColor}
           />
         </main>
       </div>
