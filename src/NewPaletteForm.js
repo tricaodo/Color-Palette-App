@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { SketchPicker } from "react-color";
+import DraggableColorBox from "./DraggableColorBox";
 
 const drawerWidth = 400;
 
@@ -55,6 +56,7 @@ const styles = theme => ({
     justifyContent: "flex-end"
   },
   content: {
+    height: "calc(100vh - 64px)",
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
     transition: theme.transitions.create("margin", {
@@ -76,9 +78,11 @@ class NewPaletteForm extends Component {
     super();
     this.state = {
       open: false,
-      currentColor: "teal"
+      currentColor: "teal",
+      colors: []
     };
-    // this.updateCurrentColor = this.updateCurrentColor.bind(this);
+    this.updateCurrentColor = this.updateCurrentColor.bind(this);
+    this.addColor = this.addColor.bind(this);
   }
 
   handleDrawerOpen = () => {
@@ -89,11 +93,13 @@ class NewPaletteForm extends Component {
     this.setState({ open: false });
   };
 
-  // updateCurrentColor(newColor) {
-  //   this.setState({ currentColor: newColor.hex });
-  // }
-  updateCurrentColor = (newColor) => {
+  updateCurrentColor(newColor) {
     this.setState({ currentColor: newColor.hex });
+  }
+
+  addColor() {
+    const { colors, currentColor } = this.state;
+    this.setState({ colors: [...colors, currentColor] });
   }
 
   render() {
@@ -147,10 +153,15 @@ class NewPaletteForm extends Component {
               Random Color
             </Button>
           </div>
+          <SketchPicker
+            color="purple"
+            onChangeComplete={this.updateCurrentColor}
+          />
           <Button
             variant="contained"
             color="primary"
             style={{ backgroundColor: this.state.currentColor }}
+            onClick={this.addColor}
           >
             Add Color
           </Button>
@@ -161,9 +172,10 @@ class NewPaletteForm extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <SketchPicker
-            onChangeComplete={this.updateCurrentColor}
-          />
+
+          {this.state.colors.map(color => (
+            <DraggableColorBox color={color} />
+          ))}
         </main>
       </div>
     );
