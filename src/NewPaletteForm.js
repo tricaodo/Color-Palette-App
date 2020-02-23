@@ -88,10 +88,24 @@ class NewPaletteForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // componentDidMount() {
+  //   ValidatorForm.addValidationRule("isUniqueColor", value => {
+  //     this.state.colors.every(({name}) => name.toLowerCase() === value.toLowerCase());
+  //   });
+  // }
   componentDidMount() {
-    ValidatorForm.addValidationRule("isNameUnique", value => {
-      this.state.colors.every(color => 
-        (color.name === value))
+    const {colors} = this.state;
+    
+    ValidatorForm.addValidationRule("isUniqueColor", value => {
+      console.log(colors);
+      for (let i = 0; i < colors.length; i++) {
+        console.log(colors[i]);
+        if (colors[i].name.toLowerCase() === value.toLowerCase()) {
+          console.log("same");
+          return false;
+        }
+      }
+      return true;
     });
   }
 
@@ -174,16 +188,16 @@ class NewPaletteForm extends Component {
           />
           <ValidatorForm onSubmit={this.addColor}>
             <TextValidator
+              value={this.state.newName}
               onChange={this.handleChange}
-              name="name"
-              validators={["isNameUnique"]}
-              errorMessages={["Name must be unique"]}
+              validators={["required", "isUniqueColor"]}
+              errorMessages={["Input cannot be blank.", "Name must be unique."]}
             />
             <Button
               variant="contained"
               color="primary"
               style={{ backgroundColor: this.state.currentColor }}
-              type="submit"              
+              type="submit"
             >
               Add Color
             </Button>
